@@ -5,12 +5,14 @@ import Users from './Components/users/Users';
 import Search from './Components/users/Search';
 import Alert from './Components/layout/Alert';
 import About from './Components/pages/About';
+import User from './Components/users/User';
 import axios from 'axios';
 import './App.css';
 
 class App extends Component {
   state = {
     users: [],
+    user: {},
     loading: false,
     alert: null
   };
@@ -27,6 +29,22 @@ class App extends Component {
     );
     this.setState({
       users: dataset.data.items,
+      loading: false
+    });
+  };
+
+  //Get single Github user
+  getUser = async username => {
+    this.setState({
+      loading: true
+    });
+    const dataset = await axios.get(
+      `https://api.github.com/users/${username}&client_id=${
+        process.env.REACT_APP_GITHUB_CLIENT_ID
+      }&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    this.setState({
+      users: dataset.data,
       loading: false
     });
   };
