@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 
 class Search extends Component {
   state = {
     text: ''
   };
+
+  static propTypes = {
+      searchUsers: PropTypes.func.isRequired,
+  }
 
   onChange = event => {
     this.setState({
@@ -13,19 +19,25 @@ class Search extends Component {
 
   onSubmit = event => {
     event.preventDefault();
+
+    this.props.searchUsers(this.state.text);
+    this.setState({
+      text: ''
+    });
   };
 
   render() {
     return (
       <div>
         <form className="form" onSubmit={this.onSubmit}>
-          <input type="text" name="text" placeholder="Search Users..." />
           <input
-            type="submit"
+            type="text"
+            name="text"
+            placeholder="Search Users..."
             value={this.state.text}
             onChange={this.onChange}
-            className="btn btn-dark btn-block"
           />
+          <input type="submit" className="btn btn-dark btn-block" />
         </form>
       </div>
     );
