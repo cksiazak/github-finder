@@ -4,6 +4,7 @@ import NavBar from './Components/layout/NavBar';
 import Users from './Components/users/Users';
 import Search from './Components/users/Search';
 import Alert from './Components/layout/Alert';
+import About from './Components/pages/About';
 import axios from 'axios';
 import './App.css';
 
@@ -74,6 +75,7 @@ class App extends Component {
                   </Fragment>
                 )}
               />
+              <Route exact path="/about" component={About} />
             </Switch>
           </div>
         </div>
