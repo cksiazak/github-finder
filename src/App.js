@@ -5,7 +5,6 @@ import './App.css';
 
 class App extends Component {
   render() {
-    const name = 'John Doe';
 
     return (
       <div className="App">
