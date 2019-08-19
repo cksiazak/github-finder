@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import NavBar from './Components/layout/NavBar';
 import Users from './Components/users/Users';
 import Search from './Components/users/Search';
+import Alert from './Components/layout/Alert';
 import axios from 'axios';
 import './App.css';
 
 class App extends Component {
   state = {
     users: [],
-    loading: false
+    loading: false,
+    alert: null
   };
 
   //Search Github Users from prop passed from Search.js
@@ -35,17 +37,30 @@ class App extends Component {
     });
   };
 
-  render() {
+  //Set alert
+  setAlert = (msg, type) => {
+    this.setState({
+      alert: { msg, type }
+    });
+    setTimeout(() => {
+      this.setState({
+        alert: null
+      })
+    }, 5000)
+  };
 
+  render() {
     const { users, loading } = this.state;
     return (
       <div className="App">
         <NavBar title="Github Finder" icon="fab fa-github" />
         <div className="container">
+          <Alert alert={this.state.alert} />
           <Search
             searchUsers={this.searchUsers}
             clearUsers={this.clearUsers}
             showClear={users.length > 0 ? true : false}
+            setAlert={this.setAlert}
           />
           <Users loading={loading} users={users} />
         </div>
